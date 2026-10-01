@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<style>
+  /* =====================================================
+     WARNA & FONT — GANTI DI SINI KALAU MAU UBAH TEMA
+  ===================================================== */
+  :root {
+    --pink-light: #ffe3ec;
+    --pink-mid: #ffb6c9;
+    --pink-deep: #f78fb3;
+    --text-dark: #6b4457;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: linear-gradient(160deg, #fff8f3, var(--pink-light));
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    max-width: 420px;
+    box-shadow: 0 15px 35px rgba(107, 68, 87, 0.15);
+    z-index: 2;
+    animation: fadeIn 1.2s ease;
+  }
+
+  /* GANTI NAMA DI SINI ⬇️ */
+  .title {
+    font-size: 1.9rem;
+    margin-bottom: 0.8rem;
+  }
+  .title span { color: var(--pink-deep); }
+
+  /* GANTI PESAN DI SINI ⬇️ */
+  .message {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 50px;
+    background: var(--pink-deep);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(247, 143, 179, 0.4);
+    transition: transform 0.2s ease;
+  }
+  .btn:hover { transform: translateY(-3px); }
+
+  /* GANTI PESAN RAHASIA DI SINI ⬇️ */
+  .secret {
+    margin-top: 1.2rem;
+    font-size: 0.98rem;
+    color: var(--text-dark);
+    display: none;
+  }
+  .secret.show { display: block; animation: fadeIn 0.5s ease; }
+
+  /* Kotak jawaban + tombol kirim WA */
+  .reply-box {
+    margin-top: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.7rem;
+    animation: fadeIn 0.5s ease;
+  }
+  .reply-box.show { display: flex; }
+  .btn-wa {
+    background: #25D366;
+    box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
+  }
+
+  /* Foto */
+  .gallery {
+    margin: 1.2rem 0;
+  }
+  .gallery img {
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(107, 68, 87, 0.15);
+  }
+
+  /* Hati mengambang, dekorasi saja */
+  .heart {
+    position: absolute;
+    bottom: -10%;
+    font-size: 1.3rem;
+    opacity: 0.8;
+    animation: floatUp linear infinite;
+    z-index: 1;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes floatUp {
+    from { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+    to { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- GANTI NAMA DI SINI -->
+    <h1 class="title">Happy Birthday, <span>Destiii</span> 🎂</h1>
+
+    <!-- GANTI PESAN UCAPAN DI SINI -->
+    <p class="message">
+      Semoga hari ini penuh senyum dan tawa, dan tahun barumu dipenuhi
+      hal-hal baik yang datang satu per satu. Selamat ulang tahun! 🎉
+    </p>
+
+    <!-- GANTI FOTO DI SINI: taruh foto.jpg di folder assets/ -->
+    <div class="gallery">
+      <img src="c:\Hilmy File\soon be my gf.jpeg" alt="foto">
+    </div>
+
+    <button class="btn" onclick="showSecret()">Klik untuk membuka pesan</button>
+
+    <!-- GANTI PESAN RAHASIA DI SINI -->
+    <p class="secret" id="secret">
+      Awalnya cuma kenal pas hire Bulog, terus salur bareng, ngobrol, lama-lama malah jadi deket wkwk. Jujur aku suka sama kamu. Kamu mau nggak jadi pacarku? ❤️
+
+    </p>
+
+    <!-- Tombol kirim jawaban, muncul setelah pesan dibuka -->
+    <div class="reply-box" id="reply-box">
+      <button class="btn btn-wa" onclick="sendToWhatsApp()">Kirimkan Jawabanmu 💌</button>
+    </div>
+  </div>
+
+<script>
+  // Tombol untuk menampilkan pesan spesial
+  function showSecret() {
+    document.getElementById('secret').classList.add('show');
+    document.getElementById('reply-box').classList.add('show');
+  }
+
+  // GANTI NOMOR WA DI SINI (format: kode negara + nomor, tanpa "+" atau "0" di depan)
+  const NOMOR_WA = '6282123344866';
+
+  // GANTI JAWABAN OTOMATIS DI SINI
+  const JAWABAN = 'Ya, aku mau';
+
+  // Kirim jawaban ke WhatsApp
+  function sendToWhatsApp() {
+    const text = encodeURIComponent(JAWABAN);
+    window.open(`https://wa.me/${6282123344866}?text=Ya, aku mauuu`, '_blank');
+  }
+
+  // Membuat hati mengambang terus-menerus (dekorasi)
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💗';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = (6 + Math.random() * 4) + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 10000);
+  }
+  setInterval(spawnHeart, 1000);
+</script>
+
+</body>
+</html>
